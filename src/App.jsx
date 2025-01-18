@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./index.css";
-
+import PropTypes from "prop-types";
 
 const messages = [
   "Learn React ⚛️ ",
@@ -20,7 +20,8 @@ export default function App() {
 }
 
 
- function Steps() {
+
+function Steps() {
   const [isOpen, setIsOpen] = useState(true);
   const [step, setStep] = useState(1);
 
@@ -49,7 +50,10 @@ export default function App() {
   //   setStep((s) => s + 1);
   //   setStep((s) => s + 1);
   // }
-    
+
+  
+
+
 }
 
 return(
@@ -68,25 +72,56 @@ return(
           3
         </div>
     </div>
-    <div>
-      <p className="message">{`Step : ${step} ${messages[step - 1]}`}</p>
-      <div className="buttons">
-
-      <button style={{backgroundColor: "purple", color: "white"}} onClick={handlePrevious} >
-      Previous
-      </button>
-      <button style={{backgroundColor: "purple", color: "white"}} onClick={handleNext}>
-      Next
-      </button>
-      </div>
+    <div className="messages">
+        <StepMessage>
+          <p>
+        {`Step : ${step} ${messages[step - 1]}`}
+          </p>
+          </StepMessage>   
+        
     </div>
-
+    <div className="buttons">
+        <Button bgColor="purple" textColor="white" onClick={handlePrevious}><span>👈</span> Previous</Button>
+        <Button bgColor="purple" textColor="white" onClick={handleNext} >Next <span>👉</span></Button>
+    </div>
     </div>)
 }  
     </div>
     </>
   )
 }
+
+function Button({bgColor, textColor, onClick, children}){
+  Button.propTypes ={
+    emoji: PropTypes.string,
+    text: PropTypes.string,
+    bgColor: PropTypes.string,
+    textColor: PropTypes.string,
+    onClick: PropTypes.func,
+    children: PropTypes.array
+  }
+  return(
+    <div className="buttons">
+
+    <button style={{backgroundColor: bgColor, color: textColor}} onClick={onClick} >
+    {children}
+    </button>
+    </div>
+  )
+}
+
+function StepMessage({ children}){
+    StepMessage.propTypes = {
+      children: PropTypes.object
+    } 
+  return(
+    <div className="messages">
+      {children}
+    </div>
+   )
+}
+
+// The proptype of children is an array.
 
 
 // React is Declarative
